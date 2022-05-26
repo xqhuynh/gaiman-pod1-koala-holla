@@ -51,3 +51,26 @@ function saveKoala( newKoala ){
   })
  
 }
+
+function displayKoalas(koalas){
+  $('#viewKoalas').empty();
+
+  for(koala of koalas){
+    $('#viewKoalas').append(`
+    <tr data-book-id = ${koala.id}>
+      <td>${koala.name}</td>
+      <td>${koala.age}</td>
+      <td>${koala.gender}</td>
+      <td>${koala.readyForTransfer}</td>
+      <td>${koala.notes}</td>
+      <td>
+      <button class ="markReadBtn">Ready for Transfer</button>
+      </td>
+      <td>
+      <button class ="deleteBtn">Delete</button>
+      </td>
+  </tr>
+
+    `);
+  }
+}

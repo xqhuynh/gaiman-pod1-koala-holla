@@ -70,7 +70,7 @@ function displayKoalas(koalas){
       <button class ="deleteBtn">Delete</button>
       </td>
   </tr>
-
     `);
   }
 }
+

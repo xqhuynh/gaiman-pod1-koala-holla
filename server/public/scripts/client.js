@@ -6,7 +6,7 @@ $( document ).ready( function(){
   setupClickListeners()
   // load existing koalas on page load
   getKoalas();
-
+  $('#addButton').on('click', setupClickListeners);
 }); // end doc ready
 
 function setupClickListeners() {
@@ -16,11 +16,11 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn'),
+      age: $('#ageIn'),
+      gender: $('#genderIn'),
+      readyForTransfer: $('#readyForTransferIn'),
+      notes: $('#notesIn'),
     };
     // call saveKoala with the new obejct
     saveKoala( koalaToSend );
@@ -38,3 +38,5 @@ function saveKoala( newKoala ){
   // ajax call to server to get koalas
  
 }
+
+

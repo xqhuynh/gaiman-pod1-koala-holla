@@ -46,6 +46,8 @@ function saveKoala( newKoala ){
     data:newKoala
   }).then(()=>{
     console.log('Sending post request');
+  }).catch(()=>{
+    console.log('post request failed');
   })
  
 }

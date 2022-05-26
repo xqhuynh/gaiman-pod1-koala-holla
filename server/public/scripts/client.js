@@ -32,7 +32,7 @@ function getKoalas(){
   // ajax call to server to get koalas
   $.ajax({
     url:'/koalas'
-    method: 'GET'
+    method: 'GET',
   }).then((reponse)=>{
     console.log('Recieve data back');
   })

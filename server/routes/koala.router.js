@@ -14,7 +14,7 @@ const pool = require('../modules/pool')
 
 // SAVON WORKING ON
 
-// PUT
+// PUT method for updating a record in the DB
 koalaRouter.put("/:id", (req, res) => {
 
     //Log out the router path
@@ -80,6 +80,37 @@ koalaRouter.put("/:id", (req, res) => {
         })
 })
 
-// DELETE
+// DELETE method for removing a record from the DB
+koalaRouter.delete("/:id", (req, res) => {
+
+    console.log("Called the koala DELETE route")
+
+    // Explicitly set the ID from param to a variable
+    const koalaId = req.params.id
+
+    // Check if bad data (a non-number) was sent
+    if (isNaN(Number(koalaId))) {
+
+        // If so, return a response indicating that much
+        res.status(400).send({error: `Invalid song id of ${koalaId}`})
+    }
+
+    // Set the base SQL command for the DB to delete a record
+    const sqlQuery = `
+        DELETE FROM "koala"
+        WHERE id = $1
+    `
+
+    // Set the parameter to pass into the SQL query (the `id`)
+    const sqlParams = [
+        koalaId,
+    ]
+
+    // Send the SQL command to the DB to execute the command
+    pool.query(sqlQuery, sqlParams)
+
+        // Get the success response
+        .then 
+})
 
 module.exports = koalaRouter;

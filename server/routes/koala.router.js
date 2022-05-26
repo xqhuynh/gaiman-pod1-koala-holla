@@ -2,8 +2,6 @@ const express = require('express');
 const koalaRouter = express.Router();
 const pool = require('../modules/pool');
 
-const pool = require('../modules/pool')
-
 
 // DB CONNECTION
 // Create pool.js connection in modules folder
@@ -23,12 +21,30 @@ koalaRouter.get('/', (req, res) => {
       });
 });
 
-//SAVON WORKING ON
 
 // POST
+koalaRouter.post('/', (req, res) => {
+    const newKoala = req.body;
+    console.log('Adding new koala', newKoala);
+    let queryText = `
+      INSERT INTO (name, gender, age, ready_to_transfer, notes)
+      VALUES ($1, $2, $3, $4, $5);
+    `;
+    pool.query(queryText, [
+        newKoala.name,
+        newKoala.gender,
+        newKoala.age,
+        newKoala.ready_to_transfer, 
+        newKoala.notes
+    ])
+    .then((result) => {
+        res.sendStatus(201);
+    })
+    .catch((err) => {
+        console.log('Error adding new koala', err);
+    });
+});
 
-
-// SAVON WORKING ON
 
 // PUT method for updating a record in the DB
 koalaRouter.put("/:id", (req, res) => {
@@ -149,29 +165,6 @@ koalaRouter.delete("/:id", (req, res) => {
         }
     )
 })
-
-
-koalaRouter.post('/', (req, res) => {
-    const newKoala = req.body;
-    console.log('Adding new koala', newKoala);
-    let queryText = `
-      INSERT INTO (name, gender, age, ready_to_transfer, notes)
-      VALUES ($1, $2, $3, $4, $5);
-    `;
-    pool.query(queryText, [
-        newKoala.name,
-        newKoala.gender,
-        newKoala.age,
-        newKoala.ready_to_transfer, 
-        newKoala.notes
-    ])
-    .then((result) => {
-        res.sendStatus(201);
-    })
-    .catch((err) => {
-        console.log('Error adding new koala', err);
-    });
-});
 
 
 module.exports = koalaRouter;

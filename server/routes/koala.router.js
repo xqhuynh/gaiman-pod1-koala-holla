@@ -132,6 +132,24 @@ koalaRouter.delete("/:id", (req, res) => {
             res.sendStatus(204) // Use `204` for DELETE
         })
 
+        // Catch any DB errors that may arise
+        .catch((err) => {
+            console.log(`
+                ========================================
+                An error has occurred in the PUT method:
+
+                    koala DELETE object from client:
+                        ${koalaUpdate}
+
+                ERROR: ${err}
+                ========================================
+            `)
+            res.sendStatus(500)
+        }
+    )
+})
+
+
 koalaRouter.post('/', (req, res) => {
     const newKoala = req.body;
     console.log('Adding new koala', newKoala);
@@ -154,21 +172,5 @@ koalaRouter.post('/', (req, res) => {
     });
 });
 
-
-        // Catch any DB errors that may arise
-        .catch((err) => {
-            console.log(`
-                ========================================
-                An error has occurred in the PUT method:
-
-                    koala DELETE object from client:
-                        ${koalaUpdate}
-
-                ERROR: ${err}
-                ========================================
-            `)
-            res.sendStatus(500)
-        })
-})
 
 module.exports = koalaRouter;

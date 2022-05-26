@@ -110,7 +110,27 @@ koalaRouter.delete("/:id", (req, res) => {
     pool.query(sqlQuery, sqlParams)
 
         // Get the success response
-        .then 
+        .then(() => {
+            console.log(`
+                Removed record with ID: ${koalaId}.
+            `)
+            res.sendStatus(204) // Use `204` for DELETE
+        })
+
+        // Catch any DB errors that may arise
+        .catch((err) => {
+            console.log(`
+                ========================================
+                An error has occurred in the PUT method:
+
+                    koala PUT object from client:
+                        ${koalaUpdate}
+
+                ERROR: ${err}
+                ========================================
+            `)
+            res.sendStatus(500)
+        })
 })
 
 module.exports = koalaRouter;

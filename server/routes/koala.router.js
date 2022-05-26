@@ -123,7 +123,7 @@ koalaRouter.delete("/:id", (req, res) => {
                 ========================================
                 An error has occurred in the PUT method:
 
-                    koala PUT object from client:
+                    koala DELETE object from client:
                         ${koalaUpdate}
 
                 ERROR: ${err}

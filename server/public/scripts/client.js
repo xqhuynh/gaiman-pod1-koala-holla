@@ -29,6 +29,10 @@ function setupClickListeners() {
     console.log(koalaToSend);
     saveKoala( koalaToSend );
     getKoalas();
+    features/delete-btn
+
+    $('.refresh').val('');
+
   }); 
 }
 

@@ -6,9 +6,9 @@ $( document ).ready( function(){
   setupClickListeners()
   // load existing koalas on page load
   getKoalas();
-  $('#addButton').on('click', setupClickListeners);
+  
   // delete button on click
-  $('.deleteBtn').on('click', handleDelete);
+  $('#viewKoalas').on('click','.deleteBtn', handleDelete);
   
 }); // end doc ready
 
@@ -92,13 +92,17 @@ function displayKoalas(koalas){
 
 // Delete Button
 function handleDelete() {
-  console.log('In handleDelete');
+  console.log('test');
+  
   let tr = $(this).closest('tr');
   let id = tr.data('koala-id');
 
+  console.log(id);
+  
+
   $.ajax({
     method: 'DELETE',
-    url: '/koalas/${id}'
+    url: `/koalas/${id}`
   })
   .then((res) => {
     console.log('in DELETE /koala');

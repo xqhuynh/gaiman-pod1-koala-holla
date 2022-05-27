@@ -26,7 +26,8 @@ function setupClickListeners() {
     // call saveKoala with the new obejct
     console.log(koalaToSend);
     saveKoala( koalaToSend );
-    
+    getKoalas();
+    $('.refresh').val('');
   }); 
 }
 
@@ -67,7 +68,7 @@ function displayKoalas(koalas){
 
   for(koala of koalas){
     $('#viewKoalas').append(`
-    <tr data-book-id = ${koala.id}>
+    <tr data-koala-id = ${koala.id}>
       <td>${koala.name}</td>
       <td>${koala.age}</td>
       <td>${koala.gender}</td>

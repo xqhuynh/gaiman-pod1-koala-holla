@@ -7,6 +7,8 @@ $( document ).ready( function(){
   // load existing koalas on page load
   getKoalas();
   $('#addButton').on('click', setupClickListeners);
+  // delete button on click
+  $('.deleteBtn').on('click', handleDelete);
   
 }); // end doc ready
 
@@ -26,7 +28,7 @@ function setupClickListeners() {
     // call saveKoala with the new obejct
     console.log(koalaToSend);
     saveKoala( koalaToSend );
-    
+    getKoalas();
   }); 
 }
 
@@ -67,7 +69,7 @@ function displayKoalas(koalas){
 
   for(koala of koalas){
     $('#viewKoalas').append(`
-    <tr data-book-id = ${koala.id}>
+    <tr data-koala-id = ${koala.id}>
       <td>${koala.name}</td>
       <td>${koala.age}</td>
       <td>${koala.gender}</td>
@@ -84,4 +86,21 @@ function displayKoalas(koalas){
   }
 }
 
+// Delete Button
+function handleDelete() {
+  console.log('In handleDelete');
+  let tr = $(this).closest('tr');
+  let id = tr.data('koala-id');
 
+  $.ajax({
+    method: 'DELETE',
+    url: '/koalas/${id}'
+  })
+  .then((res) => {
+    console.log('in DELETE /koala');
+    // Refresh data
+    getKoalas();
+  }).catch((err) => {
+    console.log('DELETE /koalas error', err);
+  })
+}

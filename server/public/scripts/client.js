@@ -7,6 +7,7 @@ $( document ).ready( function(){
   // load existing koalas on page load
   getKoalas();
   $('#addButton').on('click', setupClickListeners);
+  
 }); // end doc ready
 
 function setupClickListeners() {
@@ -19,12 +20,12 @@ function setupClickListeners() {
       name: $('#nameIn').val(),
       age: $('#ageIn').val(),
       gender: $('#genderIn').val(),
-      readyForTransfer: $('#readyForTransferIn').val(), // todo 
+      readyForTransfer: Boolean($('#readyForTransferIn').val()), // todo 
       notes: $('#notesIn').val(),
     };
     // call saveKoala with the new obejct
     console.log(koalaToSend);
-    // saveKoala( koalaToSend );
+    saveKoala( koalaToSend );
     
   }); 
 }
@@ -35,10 +36,13 @@ function getKoalas(){
   $.ajax({
     url:'/koalas',
     method: 'GET'
-  }).then((reponse)=>{
+  }).then((res)=>{
     console.log('Recieve data back');
+    displayKoalas(res);
+  }).catch((err) => {
+    alert('Failed to display Koalas. Sorry.')
+    console.log('DELETE /koalas failed:', err)
   })
-  
 } // end getKoalas
 
 function saveKoala( newKoala ){
@@ -50,12 +54,11 @@ function saveKoala( newKoala ){
     method:'POST',
     data:newKoala
   }).then(()=>{
-    console.log('Sending post request');
+    console.log('Sending post request', response);
+    getKoalas();
   }).catch(()=>{
-    console.log('post request failed');
+    console.log('post request failed', error);
   })
- 
-
 }
 
 
@@ -68,7 +71,7 @@ function displayKoalas(koalas){
       <td>${koala.name}</td>
       <td>${koala.age}</td>
       <td>${koala.gender}</td>
-      <td>${koala.readyForTransfer}</td>
+      <td>${koala.ready_to_transfer}</td>
       <td>${koala.notes}</td>
       <td>
       <button class ="markReadBtn">Ready for Transfer</button>

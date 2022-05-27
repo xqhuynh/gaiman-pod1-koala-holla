@@ -167,5 +167,31 @@ koalaRouter.delete("/:id", (req, res) => {
     )
 })
 
+// PUT method for isREady toggle
+
+koalaRouter.put('/isReady/:id', (req, res) =>{
+    console.log('updating is ready', req.body.isReady);
+
+    const sqlQuery = `
+        UPDATE "koala"
+        SET "ready_to_transfer" = $2
+        WHERE "id" = $1
+
+    `;
+
+    const sqlParams = [
+        req.params.id,
+        req.body.isReady
+    ]
+
+    pool.query(sqlQuery, sqlParams)
+        .then(() =>{
+            res.sendStatus(200);
+        })
+        .catch((err) =>{
+            console.log(`put /isReady/${req.params.id} failed: ${err}`);
+            res.sendStatus(500);
+        })
+})
 
 module.exports = koalaRouter;

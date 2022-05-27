@@ -34,14 +34,14 @@ function setupClickListeners() {
     saveKoala(koalaToSend);
 
   });
-    saveKoala( koalaToSend );
+    
     getKoalas();
-    features/delete-btn
+
 
     $('.refresh').val('');
 
-  }); 
-}
+  }; 
+
 
 function getKoalas() {
   console.log('in getKoalas');
@@ -98,7 +98,7 @@ function displayKoalas(koalas) {
 }
 
 function handleMarkReady() {
-  const koalaId = $(this).parents('tr').data('book-id');
+  const koalaId = $(this).parents('tr').data('koala-id');
   const thisSibling = $(this).parents('tr').find("td:eq(3)");
   let isReady;
   console.log('in isready')
